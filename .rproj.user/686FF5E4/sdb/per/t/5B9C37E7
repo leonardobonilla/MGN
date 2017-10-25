@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "\n# Open and merge rural area maps\n\n############################\n\nrm(list=ls())\nlibrary(data.table)\nlibrary(rgdal)\nlibrary(maptools)\nlibrary(stringr)\nlibrary(plyr)\nlibrary(dplyr)\n\n# Leonardo\nsetwd(\"C:/Users/lbonilme/Dropbox/CEER v2/\")\n\ndata_2005 <-\"Datos/DANE/Cartografia DANE/MGN/2005/\"\n\n########################################################\n\n#  Roads \n\n########################################################\n\n# List of dptos (without San Andres that has no roads)\ndpto <- list.files(data_2005, full.names = F)\ndpto <- dpto[dpto != \"88_SAN_ANDRES\"]\ndpto <- dpto[dpto != \"Colombia\"]\n\n# batch read dptos\nmap <- list()\n\ni <- 1 \nfor(d in dpto) {\n  print(d)\n  eval(parse(text=paste(\"map[[\",i,\"]] <- readOGR(dsn = paste0(data_2005,\\\"\",d,\"/VIAS\\\"), layer = \\\"VIAS\\\")\", sep=\"\")))\n  i <- i+1\n  }\n\n# Merge maps correcting for unique ID\n# Keep key variables \nvar_road <- c(\"type\",\"oneway\",\"bridge\", \"tunnel\",\"maxspeed\")\n\nuid<-1\nmap_col <- map[[1]][,var_road]\nn <- length(slot(map_col, \"lines\"))\nmap_col <- spChFIDs(map_col, as.character(uid:(uid+n-1)))\nuid <- uid + n\n\nfor (i in 2:length(dpto)) {\n  print(i)\n  map_temp <- map[[i]][,var_road]\n  n <- length(slot(map_temp, \"lines\"))\n  map_temp <- spChFIDs(map_temp, as.character(uid:(uid+n-1)))\n  uid <- uid + n\n  map_col <- spRbind(map_col,map_temp)\n}\n\n# plot(map_col)\nwriteOGR(map_col, dsn = paste0(data_2005,\"Colombia\"), layer = \"VIAS\", driver = \"ESRI Shapefile\")\n\n\n########################################################\n\n#  Rural sections \n\n########################################################\n\n# List of dptos\ndpto <- list.files(data_2005, full.names = F)\ndpto <- dpto[dpto != \"Colombia\"]\n\n# batch read dptos\nmap <- list()\n\ni <- 1 \nfor(d in dpto) {\n  print(d)\n  eval(parse(text=paste(\"map[[\",i,\"]] <- readOGR(dsn = paste0(data_2005,\\\"\",d,\"/MGN\\\"), layer = \\\"MGN_Seccion_rural\\\")\", sep=\"\")))\n  i <- i+1\n}\n\n# Merge maps correcting for unique ID\n\nuid<-1\nmap_col <- map[[1]]\nn <- length(slot(map_col, \"polygons\"))\nmap_col <- spChFIDs(map_col, as.character(uid:(uid+n-1)))\nuid <- uid + n\n\nfor (i in 2:length(dpto)) {\n  print(i)\n  map_temp <- map[[i]]\n  n <- length(slot(map_temp, \"polygons\"))\n  map_temp <- spChFIDs(map_temp, as.character(uid:(uid+n-1)))\n  uid <- uid + n\n  map_col <- spRbind(map_col,map_temp)\n}\n\nplot(map_col)\nwriteOGR(map_col, dsn = paste0(data_2005,\"Colombia\"), layer = \"MGN_seccion_rural_col\", driver = \"ESRI Shapefile\")\n\n\n",
+    "created" : 1500225708251.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1669825813",
+    "id" : "5B9C37E7",
+    "lastKnownWriteTime" : 1468962680,
+    "last_content_update" : 1468962680,
+    "path" : "D:/Users/lbonilme/Dropbox/CEER v2/Datos/DANE/Cartografia DANE/MGN/R/Read_MGN.R",
+    "project_path" : "Read_MGN.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
