@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534885407241.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "E1132842",
+    "lastKnownWriteTime" : 1534892411,
+    "last_content_update" : 1534892411158,
+    "path" : "~/GitHub/MGN/Read_MGN.R",
+    "project_path" : "Read_MGN.R",
+    "properties" : {
+        "cursorPosition" : "103,0",
+        "scrollLine" : "0"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}

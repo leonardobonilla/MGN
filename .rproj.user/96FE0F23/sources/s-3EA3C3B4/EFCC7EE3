@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1534894910429.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1779018945",
+    "id" : "EFCC7EE3",
+    "lastKnownWriteTime" : 1550862249,
+    "last_content_update" : 1550862249209,
+    "path" : "~/GitHub/MGN/MGN_road.R",
+    "project_path" : "MGN_road.R",
+    "properties" : {
+        "cursorPosition" : "40,0",
+        "scrollLine" : "10",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
